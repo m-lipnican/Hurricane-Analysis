@@ -43,12 +43,21 @@ def hurricane_data():
 
 
 hurricane_data()
-print(hurricane_data_dict)
-
+#print(hurricane_data_dict)
 
 # write your construct hurricane by year dictionary function here:
+hurricanes_by_years_dict = {}
+def hurricanes_by_years():
+    for index in hurricane_data_dict:
+        current_year = index[2]
+        current_hurricane = index
+        if current_year in hurricanes_by_years_dict:
+            hurricanes_by_years_dict[current_year].append(0)
+        else:
+            hurricanes_by_years_dict[current_year] = current_hurricane
 
-
+hurricanes_by_years()
+print(hurricanes_by_years_dict)
 
 
 
