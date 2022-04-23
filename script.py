@@ -39,53 +39,78 @@ up_damages()
 hurricane_data_dict = {}
 def hurricane_data():
     for index in range(len(deaths)):
-        hurricane_data_dict[names[index]] = {"Name": names[index], "Month": months[index], "Year" : years[index], "Max Sustained Wind" : max_sustained_winds[index], "Areas Affected" : areas_affected[index], "Damage" : damages[index], "Deaths" : deaths[index]}
+        hurricane_data_dict[names[index]] = {"Name": names[index],
+                                             "Month": months[index],
+                                             "Year" : years[index],
+                                             "Max Sustained Wind" : max_sustained_winds[index],
+                                             "Areas Affected" : areas_affected[index],
+                                             "Damage" : damages[index],
+                                             "Deaths" : deaths[index]}
 
 
 hurricane_data()
 #print(hurricane_data_dict)
 
 # write your construct hurricane by year dictionary function here:
-hurricanes_by_years_dict = {}
-def hurricanes_by_years():
-    for index in hurricane_data_dict:
-        current_year = index[2]
-        current_hurricane = index
-        if current_year in hurricanes_by_years_dict:
-            hurricanes_by_years_dict[current_year].append(0)
-        else:
-            hurricanes_by_years_dict[current_year] = current_hurricane
 
-hurricanes_by_years()
-print(hurricanes_by_years_dict)
+years_dict= []
 
+for n, m, y, ma, a, da,  z in zip(names, months, years, max_sustained_winds, areas_affected, up_damages_list, deaths):
+    dict = {y: {'Name': n, 'Month':m, 'Year': y, 'Max_sustained_wind': ma, 'Area_affected': a, 'Damage': da, 'Deaths': z}}
+    years_dict.append(dict)
 
+#print(years_dict)
 
 
 
 # write your count affected areas function here:
+affected_area_count = {}
+def affected_areas():
+    for i in areas_affected:
+        for b in i:
+            if b not in affected_area_count:
+                affected_area_count[b] = 1
+            else:
+                affected_area_count[b] += 1
 
-
-
-
-
-
+affected_areas()
+#print(affected_area_count)
 
 # write your find most affected area function here:
 
+def max_areas_affected(affected_area_count):
+    max_area = ""
+    max_area_count = 0
+
+    for a in affected_area_count:
+        if affected_area_count[a] > max_area_count:
+            max_area = a
+            max_area_count = affected_area_count[a]
+    return max_area, max_area_count
 
 
+max_area, max_count = max_areas_affected(affected_area_count)
+#print(max_area, max_count)
 
 
 
 
 # write your greatest number of deaths function here:
 
+def hurricane_by_deaths(hurricane):
+    deadliest_area = ""
+    deadliest_area_count = 0
+
+    for index in hurricane:
+        if hurricane[index]["Deaths"] > deadliest_area_count:
+            deadliest_area = index
+            deadliest_area_count = hurricane[index]["Deaths"]
+    return deadliest_area, deadliest_area_count
 
 
-
-
-
+deadliest_area, deadlist_area_count = hurricane_by_deaths(hurricane_data_dict)
+#print(deadliest_area)
+#print(deadlist_area_count)
 
 # write your catgeorize by mortality function here:
 
