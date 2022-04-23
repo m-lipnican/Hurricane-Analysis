@@ -33,20 +33,17 @@ def up_damages():
             up_damages_list.append("Damages not recorded")
 
 up_damages()
-print(up_damages_list)
-
-
-
-
-
-
+#print(up_damages_list)
 
 # write your construct hurricane dictionary function here:
+hurricane_data_dict = {}
+def hurricane_data():
+    for index in range(len(deaths)):
+        hurricane_data_dict[names[index]] = {"Name": names[index], "Month": months[index], "Year" : years[index], "Max Sustained Wind" : max_sustained_winds[index], "Areas Affected" : areas_affected[index], "Damage" : damages[index], "Deaths" : deaths[index]}
 
 
-
-
-
+hurricane_data()
+print(hurricane_data_dict)
 
 
 # write your construct hurricane by year dictionary function here:
