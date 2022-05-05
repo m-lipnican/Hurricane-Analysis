@@ -44,7 +44,7 @@ def hurricane_data():
                                              "Year" : years[index],
                                              "Max Sustained Wind" : max_sustained_winds[index],
                                              "Areas Affected" : areas_affected[index],
-                                             "Damage" : damages[index],
+                                             "Damage" : up_damages_list[index],
                                              "Deaths" : deaths[index]}
 
 
@@ -109,23 +109,77 @@ def hurricane_by_deaths(hurricane):
 
 
 deadliest_area, deadlist_area_count = hurricane_by_deaths(hurricane_data_dict)
-#print(deadliest_area)
-#print(deadlist_area_count)
+print(deadliest_area)
+print(deadlist_area_count)
 
 # write your catgeorize by mortality function here:
 
+def mortality_rating(hurricanes):
+    mortality_scale = {0: 0,
+                       1: 100,
+                       2: 500,
+                       3: 1000,
+                       4: 10000}
+    hurricanes_mortality = {0:[],1:[],2:[],3:[],4:[],5:[]}
+    for hurricane in hurricanes:
+        deaths = hurricane_data_dict[hurricane]["Deaths"]
+        if deaths <= 0:
+            hurricanes_mortality[0].append(hurricane)
+        elif deaths > 0 and deaths < 100:
+            hurricanes_mortality[1].append(hurricane)
+        elif deaths >= 100 and deaths < 500:
+            hurricanes_mortality[2].append(hurricane)
+        elif deaths >= 500 and deaths < 1000:
+            hurricanes_mortality[3].append(hurricane)
+        elif deaths >= 1000 and deaths < 10000:
+            hurricanes_mortality[4].append(hurricane)
+        else:
+            hurricanes_mortality[5].append(hurricane)
+    return hurricanes_mortality
 
-
-
-
-
-
+#print(mortality_rating(hurricane_data_dict))
 # write your greatest damage function here:
 
+final_damage = 0
+final_name = ""
+#Converterd list is at the top
+for i in hurricane_data_dict:
+    damage = hurricane_data_dict[i]["Damage"]
 
-
-
-
+    if damage == "Damages not recorded":
+        pass
+    else:
+        if damage > final_damage:
+            final_damage = damage
+            final_name = hurricane_data_dict[i]["Name"]
+#print(final_damage)
+#print(final_name)
 
 
 # write your catgeorize by damage function here:
+def damage_categorized(hurricanes):
+    damage_scale = {0: 0,
+                1: 100000000,
+                2: 1000000000,
+                3: 10000000000,
+                4: 50000000000}
+    hurricanes_damage = {0:[],1:[],2:[],3:[],4:[],5:[]}
+    for hurricane in hurricanes:
+        damage = hurricane_data_dict[hurricane]["Damage"]
+        if damage == "Damages not recorded":
+            pass
+        else:
+            if damage <= 0:
+                hurricanes_damage[0].append(hurricane)
+            elif damage > 0 and damage < 100000000:
+                hurricanes_damage[1].append(hurricane)
+            elif damage >= 100000000 and damage < 1000000000:
+                hurricanes_damage[2].append(hurricane)
+            elif damage >= 1000000000 and damage < 10000000000:
+                hurricanes_damage[3].append(hurricane)
+            elif damage >= 10000000000 and damage < 50000000000:
+                hurricanes_damage[4].append(hurricane)
+            else:
+                hurricanes_damage[5].append(hurricane)
+    return hurricanes_damage
+print(damage_categorized(hurricane_data_dict))
